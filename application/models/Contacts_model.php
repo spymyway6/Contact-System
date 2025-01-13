@@ -39,6 +39,11 @@ class Contacts_model extends CI_Model {
         }
     }
 
+    public function fetch_this_contact($contact_id){
+        $user_id = $this->session->userdata('id');
+        return $this->db->select('*')->from('contacts')->where('id', $contact_id)->where('user_id', $user_id)->get()->row_array();
+    }
+
     public function edit_this_contact($contact_id){
         $user_id = $this->session->userdata('id');
         $name    = $this->input->post('name');
@@ -63,6 +68,16 @@ class Contacts_model extends CI_Model {
             $this->db->where('id', $contact_id);
             $result = $this->db->update('contacts', $data);
             return true;
+        }
+    }
+
+    public function delete_contact($contact_id) {
+        $this->db->where('id', $contact_id);
+        $this->db->delete('contacts');
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }   

@@ -404,7 +404,7 @@ body{
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    width: 100px;
+    width: auto;
 }
 .tbl-act-grp .tbl-act-btn {
     background: #0000;

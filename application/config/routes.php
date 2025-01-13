@@ -63,3 +63,6 @@ $route['logout']        = 'auth/user_logout';
 // Contact/Dashboard/User Routes
 $route['dashboard']           = 'user/dashboard';
 $route['add-new-contact']     = 'user/add_new_contact';
+$route['edit-contact/(:num)'] = 'user/fetch_contact/$1';
+$route['delete-contact/(:num)'] = 'user/delete_contact/$1';
+

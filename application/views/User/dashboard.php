@@ -112,8 +112,8 @@
                                                         <td><?=date('M d, Y h:i A', strtotime($contact['date_created']))?></td>
                                                         <td class='action-row'>
                                                             <div class="tbl-act-grp">
-                                                                <button class="tbl-act-btn" title="Edit Details"><i class="fa-solid fa-pen-to-square tbl-btn-icon"></i></i></button>
-                                                                <button class="tbl-act-btn" title="Delete" onclick=""><i class="fa-solid fa-trash tbl-btn-icon"></i></button>
+                                                                <button class="tbl-act-btn" title="Edit Details" onclick="editContact(<?=$contact['id']?>)"><i class="fa-solid fa-pen-to-square tbl-btn-icon"></i></i></button>
+                                                                <button class="tbl-act-btn" title="Delete" onclick="deleteContact(<?=$contact['id']?>)"><i class="fa-solid fa-trash tbl-btn-icon"></i></button>
                                                             </div>
                                                         </td>   
                                                     </tr>
@@ -153,7 +153,7 @@
 
             <div class="side-modal-container hide-side-modal" id="contact-modal">
                 <div class="side-modal-wrapper">
-                     <form id="add-contact-form">
+                    <form id="add-contact-form">
                         <div class="card main-modal-card">
                             <div class="card-body main-modal-card-body">
                                 <h5 class="card-title main-modal-card-title">
@@ -191,8 +191,8 @@
                             </div>
                             <div class="main-modal-footer">
                                 <div class="tbl-btn-grp">
-                                    <input type="hidden" name="contact_id" id="contact_id" value="0">
-                                   <button class="btn-warning" type="button" onclick="addNewContact(this, 'add-contact-form')"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                                    <input type="hidden" name="sel_contact_id" id="sel_contact_id" value="0">
+                                    <button class="btn-warning" type="button" onclick="addNewContact(this, 'add-contact-form')"><i class="fa-solid fa-floppy-disk"></i> Save</button>
                                 </div>
                             </div>
                         </div>
