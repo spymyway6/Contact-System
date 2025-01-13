@@ -61,13 +61,14 @@ const addNewContact = (e, formID) => {
                     closeContactModal();
                     swal('Contact Saved!', res.message, 'success');
                     $(`#${formID}`)[0].reset();
-                    $(e).html('<i class="fa-solid fa-floppy-disk"></i> Save');
                 }else{
                     swal("Oops!", res.message, "error");
                 }
+                $(e).html('<i class="fa-solid fa-floppy-disk"></i> Save');
             },
             error: (res) => {
                 swal("Error occured!", 'Please try again.', "error");
+                $(e).html('<i class="fa-solid fa-floppy-disk"></i> Save');
             },
         });
     }

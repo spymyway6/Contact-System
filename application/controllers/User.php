@@ -20,10 +20,10 @@ class User extends CI_Controller {
 	public function add_new_contact(){
 		if($this->session->userdata('id')){
 			$contact_id = $this->input->post('sel_contact_id');
-			if($contact_id !== 0){
-				$contact = $this->contacts_model->add_this_contact();
-			}else{
+			if($contact_id){
 				$contact = $this->contacts_model->edit_this_contact($contact_id);
+			}else{
+				$contact = $this->contacts_model->add_this_contact();
 			}
 
 			if($contact){
