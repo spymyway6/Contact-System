@@ -100,7 +100,7 @@
                                         <tbody id="contact-table-body">
                                             <?php if($contacts){ ?>
                                                 <?php foreach($contacts as $contact){ ?>
-                                                    <tr key={item.id}>
+                                                    <tr>
                                                         <td>
                                                             <div class="tbl-content-wrapper">
                                                                 <h6><?=$contact['name']; ?></h6>

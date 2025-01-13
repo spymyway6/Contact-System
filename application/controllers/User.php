@@ -136,6 +136,58 @@ class User extends CI_Controller {
         }
 	}
 
-	
+	public function fetch_all_contacts(){
+		if($this->session->userdata('id')){
+			$contacts = $this->contacts_model->get_all_contacts();
+			if($contacts){
+				$data = '';
+				foreach($contacts as $contact){
+					$data .= '
+						<tr>
+							<td>
+								<div class="tbl-content-wrapper">
+									<h6>'.$contact['name'].'</h6>
+								</div>
+							</td>
+							<td>'.$contact['phone'].'</td>
+							<td>'.$contact['company'].'</td>
+							<td>'.$contact['email'].'</td>
+							<td>'.date('M d, Y h:i A', strtotime($contact['date_created'])).'</td>
+							<td class="action-row">
+								<div class="tbl-act-grp">
+									<button class="tbl-act-btn" title="Edit Details" onclick="editContact('.$contact['id'].')"><i class="fa-solid fa-pen-to-square tbl-btn-icon"></i></i></button>
+									<button class="tbl-act-btn" title="Delete" onclick="deleteContact('.$contact['id'].')"><i class="fa-solid fa-trash tbl-btn-icon"></i></button>
+								</div>
+							</td>   
+						</tr>
+					';
+				}
+
+				echo json_encode(
+					array(
+						'status' => true,
+						'data' => $data,
+						'message' => 'Contacts fetched successfully.'
+					)
+				);
+			}else{
+				echo json_encode(
+					array(
+						'status' => false,
+						'data' => [],
+						'message' => 'Error fetching contacts.'
+					)
+				);
+			}
+		}else{
+			echo json_encode(
+				array(
+					'status' => false,
+					'data' => [],
+					'message' => 'A problem occured. Please try again.'
+				)
+			);
+        }
+	}
 
 }

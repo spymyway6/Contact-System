@@ -61,6 +61,7 @@ const addNewContact = (e, formID) => {
                     closeContactModal();
                     swal('Contact Saved!', res.message, 'success');
                     $(`#${formID}`)[0].reset();
+                    fetchAllContacts();
                 }else{
                     swal("Oops!", res.message, "error");
                 }
@@ -73,7 +74,6 @@ const addNewContact = (e, formID) => {
         });
     }
 }
-
 
 const editContact = (contactID) => {
     $.ajax({
@@ -123,6 +123,7 @@ const deleteContact = (contactID) => {
                 var res = JSON.parse(resp);
                 if(res.status == true){
                     swal('Contact Deleted!', res.message, 'success');
+                    fetchAllContacts();
                 }else{
                     swal("Error deleting!", res.message, "error");
                 }
@@ -131,5 +132,25 @@ const deleteContact = (contactID) => {
                 swal("Error deleting!", res.message, "error");
             },
         });
+    });
+}
+
+const fetchAllContacts = () => {
+    $.ajax({
+        type: "GET",
+        url: base_url+'fetch-all-contacts/',
+        contentType: false,
+        processData: false,
+        success: (resp) => {
+            var res = JSON.parse(resp);
+            if(res.status == true){
+                $('#contact-table-body').html(res.data);
+            }else{
+                swal("Error fetcing contact!", res.message, "error");
+            }
+        },
+        error: (res) => {
+            swal("Error fetcing contact!", res.message, "error");
+        },
     });
 }
