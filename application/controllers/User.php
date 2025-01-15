@@ -190,11 +190,7 @@ class User extends CI_Controller {
 					$total_of+=1;
 					$data .= '
 						<tr>
-							<td>
-								<div class="tbl-content-wrapper">
-									<h6>'.$contact['name'].'</h6>
-								</div>
-							</td>
+							<td>'.$contact['name'].'</td>
 							<td>'.$contact['phone'].'</td>
 							<td>'.$contact['company'].'</td>
 							<td>'.$contact['email'].'</td>

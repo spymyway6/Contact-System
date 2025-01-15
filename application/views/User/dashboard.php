@@ -3,37 +3,12 @@
     <?php $this->load->view('User/common/header'); ?>
 
     <body>
-    <main class="main-content">
-            <div class="top-navbar-container">
-                <div class="top-menu-right-wrapper">
-                    <ul class="navtop-menu-items">
-                        <li class="navtop-item">
-                            <button class="navtop-link" id="dropdownButton">
-                                <span class="active-icon"></span>
-                                <div class="navtop-user-img"><i class="fa fa-user"></i></div>
-                            </button>
-                            <div class="dropdown-menu profile-dropdown" id="dropdownMenu">
-                                <div class="top-profile-info">
-                                    <div class="navtop-user-img"><i class="fa fa-user"></i></div>
-                                    <span>MJ Pino <small>User</small></span>
-                                </div>
-                                <button onclick="logout()" type="button"><i class="fa-solid fa-power-off nav-icons"></i> Signout</button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <main class="main-content">
+            <?php $this->load->view('User/common/navbar'); ?>
 
             <div class="dashboard-container">
-                <div class="page-sub-heading">
-                    <h1>My Contacts</h1>
-                    <ul class="breadcrumbs">
-                        <li>
-                            <Link to="/dashboard"><RxDashboard /> Dashboard</Link>
-                        </li>
-                        <li>My Contacts</li>
-                    </ul>
-                </div>
+                <?php $this->load->view('User/common/breadcrumbs'); ?>
+
                 <div class="wrapper">
                     <div class="dashboard-content">
                         <div class="table-container">
@@ -51,8 +26,6 @@
                                             <div class="selection-dropdown-wrapper">
                                                 <label htmlFor="number_of_items">Items per page</label>
                                                 <select name="number_of_items" id="number_of_items" class="form-control" onchange="fetchAllContacts()">
-                                                    <option value="3">3</option>
-                                                    <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="20">20</option>
                                                     <option value="30">30</option>
@@ -115,54 +88,7 @@
                 </div>
             </div>
 
-            <div class="side-modal-container hide-side-modal" id="contact-modal">
-                <div class="side-modal-wrapper">
-                    <form id="add-contact-form">
-                        <div class="card main-modal-card">
-                            <div class="card-body main-modal-card-body">
-                                <h5 class="card-title main-modal-card-title">
-                                    <span>
-                                        <em id="modal-heading"><i class="fa-regular fa-address-book"></i> Add New Contact</em>
-                                        <small>Create your own contact in just a seconds.</small>
-                                    </span>
-                                    <div class="card-btn-grp">
-                                        <button type="button" onclick="closeContactModal()" class='btn btn-cls'><i class="fa-solid fa-x"></i></button>
-                                    </div>
-                                </h5>
-                                <div class="card-text main-modal-card-text">
-                                    <h5 class="form-group-title">Contact Details</h5>
-                                    <div class="full-row">
-                                        <div class="form-group">
-                                            <label for="name">Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Contact Name" value="" required />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phone">Phone <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="" required />
-                                        </div>
-                                    </div>
-                                    <div class="full-row">
-                                        <div class="form-group">
-                                            <label for="company">Company</label>
-                                            <input type="text" class="form-control" id="company" name="company" placeholder="Company" value=""/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" value=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-modal-footer">
-                                <div class="tbl-btn-grp">
-                                    <input type="hidden" name="sel_contact_id" id="sel_contact_id" value="0">
-                                    <button class="btn-warning" type="button" onclick="addNewContact(this, 'add-contact-form')"><i class="fa-solid fa-floppy-disk"></i> Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <?php $this->load->view('User/components/add_contact_modal'); ?>
         </main>
 
         <!-- jQuery  -->

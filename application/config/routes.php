@@ -54,17 +54,18 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // Auth routes
-$route['login']         = 'auth/login';
-$route['login-user']    = 'auth/login_user_ajax';
-$route['register-user'] = 'auth/register_user_ajax';
-$route['register']      = 'auth/register';
-$route['logout']        = 'auth/user_logout';
+$route['login']                   = 'auth/login';
+$route['login-user']              = 'auth/login_user_ajax';
+$route['register-user']           = 'auth/register_user_ajax';
+$route['register']                = 'auth/register';
+$route['logout']                  = 'auth/user_logout';
+$route['update-profile-settings'] = 'auth/update_profile_settings';
 
 // Contact/Dashboard/User Routes
-$route['dashboard']           = 'user/dashboard';
-$route['add-new-contact']     = 'user/add_new_contact';
-$route['fetch-all-contacts']  = 'user/fetch_all_contacts';
+$route['dashboard']              = 'user/dashboard';
+$route['add-new-contact']        = 'user/add_new_contact';
+$route['fetch-all-contacts']     = 'user/fetch_all_contacts';
 $route['search-fetch-contacts']  = 'user/fetch_all_contacts';
-$route['edit-contact/(:num)'] = 'user/fetch_contact/$1';
-$route['delete-contact/(:num)'] = 'user/delete_contact/$1';
+$route['edit-contact/(:num)']    = 'user/fetch_contact/$1';
+$route['delete-contact/(:num)']  = 'user/delete_contact/$1';
 

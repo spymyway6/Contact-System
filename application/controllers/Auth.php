@@ -127,6 +127,76 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	public function update_profile_settings(){
+		$user_id = $this->session->userdata('id');
+        if($this->input->post()){
+			$fname 			= $this->input->post('first_name');
+			$lname 			= $this->input->post('last_name');
+			$email 			= $this->input->post('user_email');
+			$password   	= $this->input->post('password');
+			$conf_password 	= $this->input->post('confirm_password');
+
+			if($fname && $lname && $email){
+				$check_if_email_exists = $this->auth_model->check_if_email_exists($user_id, $email);
+				if(!$check_if_email_exists){
+					if($password){
+						if($password == $conf_password){
+							$update_profile = $this->auth_model->update_profile($user_id, $fname, $lname, $email, $password);
+							echo json_encode(
+								array(
+									'status' => true,
+									'data' => [],
+									'message' => 'Profile updated successfully. Reloading...'
+								)
+							);
+						}else{
+							echo json_encode(
+								array(
+									'status' => false,
+									'data' => [],
+									'message' => 'Password should be equal to confirm password.'
+								)
+							);
+						}
+					}else{
+						$update_profile = $this->auth_model->update_profile($user_id, $fname, $lname, $email, $password);
+						echo json_encode(
+							array(
+								'status' => true,
+								'data' => [],
+								'message' => 'Profile updated successfully. Reloading...'
+							)
+						);
+					}
+				}else{
+					echo json_encode(
+						array(
+							'status' => false,
+							'data' => [],
+							'message' => 'Email already exist. Please try another email.'
+						)
+					);
+				}
+			}else{
+				echo json_encode(
+					array(
+						'status' => false,
+						'data' => [],
+						'message' => 'All fields are required.'
+					)
+				);
+			}
+		}else{
+			echo json_encode(
+				array(
+					'status' => false,
+					'data' => [],
+					'message' => 'A problem occured. Please try again.'
+				)
+			);
+		}
+	}
+
     public function user_logout(){
         $this->session->sess_destroy();
 		redirect(base_url());

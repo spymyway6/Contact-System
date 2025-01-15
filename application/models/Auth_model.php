@@ -13,6 +13,16 @@ class Auth_model extends CI_Model {
         return isset($data['id']) ? $data : false;
     }
 
+    public function check_if_email_exists($id, $email){
+        $data =$this->db->select('*')
+            ->from('users')
+            ->where("id !=", $id)
+            ->where("email", $email)
+        ->get()->row_array();
+
+        return isset($data['id']) ? true : false;
+    }
+
     public function register_this_user(){
         $email      = $this->input->post('email');
         $first_name = $this->input->post('first_name');
@@ -33,5 +43,29 @@ class Auth_model extends CI_Model {
             $this->session->set_userdata(['id' => $user_id]);
             return $user_id;            
         }
+    }
+
+    public function get_current_user(){
+        $user_id = $this->session->userdata('id');
+        $data =$this->db->select('*')
+            ->from('users')
+            ->where("id", $user_id)
+        ->get()->row_array();
+
+        return isset($data['id']) ? $data : false;
+    }
+
+    public function update_profile($user_id, $fname, $lname, $email, $password){
+        $data = array(
+            'first_name' => $fname,
+            'last_name'  => $lname,
+            'email'      => $email,
+        );
+        if($password){
+            $data['password'] = md5($password);  
+        }
+        $this->db->where('id', $user_id);
+        $result = $this->db->update('users', $data);
+        return true;
     }
 }   
