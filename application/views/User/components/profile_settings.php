@@ -42,7 +42,6 @@
                 </div>
                 <div class="main-modal-footer">
                     <div class="tbl-btn-grp">
-                        <input type="hidden" name="sel_contact_id" id="sel_contact_id" value="0">
                         <button class="btn-warning" type="button" onclick="saveProfileSettings(this, 'profile-settings-form')"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
                     </div>
                 </div>
