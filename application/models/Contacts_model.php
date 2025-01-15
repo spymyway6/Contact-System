@@ -7,9 +7,45 @@ class Contacts_model extends CI_Model {
         return false;
     }
 
-    public function get_all_contacts(){
+    public function get_all_contacts($limit, $offset){
         $user_id = $this->session->userdata('id');
-        return $this->db->select('*')->from('contacts')->where('user_id', $user_id)->get()->result_array();
+        return $this->db->select('*')->from('contacts')->where('user_id', $user_id)->limit($limit, $offset)->get()->result_array();
+    }
+
+    public function get_all_contacts_search($limit, $offset, $keyword) {
+        $user_id = $this->session->userdata('id');
+        $this->db->select('*')->from('contacts');
+        $this->db->where('user_id', $user_id);
+        if($keyword){
+           // Group the LIKE conditions together
+            $this->db->group_start(); // Opens a bracket
+            $this->db->or_like('name', $keyword, 'both');
+            $this->db->or_like('company', $keyword, 'both');
+            $this->db->or_like('phone', $keyword, 'both');
+            $this->db->or_like('email', $keyword, 'both');
+            $this->db->group_end(); // Closes the bracket 
+        }
+        // Set the limit and offset for pagination
+        $this->db->limit($limit, ($offset));
+        return $this->db->get()->result_array();
+    }
+
+    public function get_contacts_count($keyword='') {
+        $user_id = $this->session->userdata('id');
+        $this->db->select('COUNT(*) as count')->from('contacts');
+        $this->db->where('user_id', $user_id);
+        if($keyword){
+           // Group the LIKE conditions together
+            $this->db->group_start(); // Opens a bracket
+            $this->db->or_like('name', $keyword, 'both');
+            $this->db->or_like('company', $keyword, 'both');
+            $this->db->or_like('phone', $keyword, 'both');
+            $this->db->or_like('email', $keyword, 'both');
+            $this->db->group_end(); // Closes the bracket 
+        }
+        // Set the limit and offset for pagination
+        $result = $this->db->get()->row_array();
+        return $result['count'];
     }
 
     public function add_this_contact(){

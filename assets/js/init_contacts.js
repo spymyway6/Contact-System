@@ -39,7 +39,7 @@ const showContactModal = () => {
     $('#contact-modal').addClass('show-side-modal');
     $('#contact-modal').removeClass('hide-side-modal');
     $(`#add-contact-form`)[0].reset();
-    $('#contact_id').val(0);
+    $('#sel_contact_id').val(0);
 }
 
 const addNewContact = (e, formID) => {
@@ -128,29 +128,54 @@ const deleteContact = (contactID) => {
                     swal("Error deleting!", res.message, "error");
                 }
             },
-            error: (res) => {
-                swal("Error deleting!", res.message, "error");
+            error: () => {
+                swal("Error deleting!", 'A problem occured.', "error");
             },
         });
     });
 }
 
-const fetchAllContacts = () => {
+const fetchAllContacts = (page=0) => {
+    let query = $('#search_contact').val();
+    $('#contact-table-body').html(`
+        <tr class='loader-full'>
+            <td colspan="6">
+                <div class="loading-table">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <span>Loading contacts. Please wait...</span>
+                </div>
+            </td>
+        </tr>
+    `);
     $.ajax({
-        type: "GET",
-        url: base_url+'fetch-all-contacts/',
-        contentType: false,
-        processData: false,
+        type: "POST",
+        url: base_url + 'search-fetch-contacts', 
+        data: { 
+            keyword: query,
+            page: page,
+            limit: $('#number_of_items').val(),
+        },
         success: (resp) => {
             var res = JSON.parse(resp);
-            if(res.status == true){
-                $('#contact-table-body').html(res.data);
+            if(res.data.contacts){
+                $('#contact-table-body').html(res.data.contacts);
             }else{
-                swal("Error fetcing contact!", res.message, "error");
+                $('#contact-table-body').html(`
+                    <tr class="loader-full">
+                        <td colspan="6">
+                            <div class="loading-table">
+                                <i class="fa-regular fa-folder-open"></i>
+                                <span>No contacts to display.</span>
+                            </div>
+                        </td>
+                    </tr>
+                `);
             }
+            $('#pagination-wrapper').html(res.data.pagination);
+            $('#total-results-wrapper').html(res.data.total_results);
         },
-        error: (res) => {
-            swal("Error fetcing contact!", res.message, "error");
-        },
+        error: (xhr, status, error) => {
+            swal("Error fetching contact!", 'A problem occurred: ' + error, "error");
+        }
     });
-}
+};

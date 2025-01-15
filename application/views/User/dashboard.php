@@ -42,15 +42,17 @@
                                     <div class="table-fitler-group">
                                         <div class="filter-actions-grp">
                                             <div class="selection-dropdown-white-wrapper text-field-btn multiple-keywords">
-                                                <input type="search" name="search_contact" id="search_contact" placeholder='Search Contact...' class="form-control" />
-                                                <FiSearch/>
+                                                <input type="search" name="search_contact" id="search_contact" placeholder='Search Contact...' class="form-control"  oninput="fetchAllContacts()" />
+                                                <i class="fa-solid fa-search"></i>
                                             </div>
                                         </div>
                                         <div class="filter-results-grp">
                                             <button class="selection-btn active-btn primary-btn" onclick="showContactModal()"> Add New Contact</button>
                                             <div class="selection-dropdown-wrapper">
                                                 <label htmlFor="number_of_items">Items per page</label>
-                                                <select name="number_of_items" id="number_of_items" class="form-control" onChange="">
+                                                <select name="number_of_items" id="number_of_items" class="form-control" onchange="fetchAllContacts()">
+                                                    <option value="3">3</option>
+                                                    <option value="5">5</option>
                                                     <option value="10">10</option>
                                                     <option value="20">20</option>
                                                     <option value="30">30</option>
@@ -97,52 +99,14 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody id="contact-table-body">
-                                            <?php if($contacts){ ?>
-                                                <?php foreach($contacts as $contact){ ?>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="tbl-content-wrapper">
-                                                                <h6><?=$contact['name']; ?></h6>
-                                                            </div>
-                                                        </td>
-                                                        <td><?=$contact['phone']; ?></td>
-                                                        <td><?=$contact['company']; ?></td>
-                                                        <td><?=$contact['email']; ?></td>
-                                                        <td><?=date('M d, Y h:i A', strtotime($contact['date_created']))?></td>
-                                                        <td class='action-row'>
-                                                            <div class="tbl-act-grp">
-                                                                <button class="tbl-act-btn" title="Edit Details" onclick="editContact(<?=$contact['id']?>)"><i class="fa-solid fa-pen-to-square tbl-btn-icon"></i></i></button>
-                                                                <button class="tbl-act-btn" title="Delete" onclick="deleteContact(<?=$contact['id']?>)"><i class="fa-solid fa-trash tbl-btn-icon"></i></button>
-                                                            </div>
-                                                        </td>   
-                                                    </tr>
-                                                <?php } ?>
-                                            <?php }else{ ?>
-                                                <tr class='loader-full'>
-                                                    <td colspan="6">
-                                                        <div class="loading-table">
-                                                            <i class="fa-regular fa-folder-open"></i>
-                                                            <span>No contacts found.</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
+                                        <!-- Dynamically load all contacts -->
+                                        <tbody id="contact-table-body"></tbody>
                                     </table>
 
                                     <div class="table-pagination-wrapper">
-                                        <p>Total of 1 results (out of 1)</p>
-                                        <div class="pagination-wrapper">
-                                            <ul>
-                                                <li>
-                                                    <button class="pagination-btn page-arrows" onclick="handlePreviousPage"><i class="fa-solid fa-angles-left"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="pagination-btn page-arrows" onclick="handleNextPage"><i class="fa-solid fa-angles-right"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <p id="total-results-wrapper"></p>
+                                        <!-- Pagination links -->
+                                        <div class="pagination-wrapper" id="pagination-wrapper"></div>
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +167,12 @@
 
         <!-- jQuery  -->
         <?php $this->load->view('User/common/footer'); ?>
+
+        <script>
+            $(document).ready(function() {
+                fetchAllContacts();
+            });
+        </script>
 	
 	</body>
 </html>

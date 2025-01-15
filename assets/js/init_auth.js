@@ -17,12 +17,12 @@ const loginUser = (e, formID) => {
                 if(res.status == true){
                     window.location.href= base_url + "dashboard";
                 }else{
-                    $('#error-msg').html(`<div class="error-msg">${res.message}</div>`);
+                    $('#error-msg').html(`<div class="error-msg"><i class="fa-solid fa-warning"></i> ${res.message}</div>`);
                     $(e).html('Login');
                 }
             },
             error: (res) => {
-                $('#error-msg').html(`<div class="error-msg">${res.message}</div>`);
+                $('#error-msg').html(`<div class="error-msg"><i class="fa-solid fa-warning"></i> ${res.message}</div>`);
             },
         });
     }
@@ -47,12 +47,12 @@ const registerUser = (e, formID) => {
                 if(res.status == true){
                     window.location.href= base_url + "dashboard";
                 }else{
-                    $('#error-msg').html(`<div class="error-msg">${res.message}</div>`);
+                    $('#error-msg').html(`<div class="error-msg"><i class="fa-solid fa-warning"></i> ${res.message}</div>`);
                     $(e).html('Login');
                 }
             },
             error: (res) => {
-                $('#error-msg').html(`<div class="error-msg">${res.message}</div>`);
+                $('#error-msg').html(`<div class="error-msg"><i class="fa-solid fa-warning"></i> ${res.message}</div>`);
             },
         });
     }

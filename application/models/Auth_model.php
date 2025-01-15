@@ -7,7 +7,7 @@ class Auth_model extends CI_Model {
         $data =$this->db->select('*')
             ->from('users')
             ->where("email", $email)
-            ->where("password", $password)
+            ->where("password", md5($password))
         ->get()->row_array();
 
         return isset($data['id']) ? $data : false;

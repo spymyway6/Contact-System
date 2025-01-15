@@ -159,7 +159,7 @@ class User extends CI_Controller {
 				}
 			}
 			$contacts = $this->contacts_model->get_all_contacts_search($limit, $offset, $keyword);
-			$page_row = 0;
+
 			for ($i = $start_page; $i <= $end_page; $i++):
 				// Calculate the correct offset for each page
 				$page_row = ($i - 1) * $limit;
@@ -208,6 +208,7 @@ class User extends CI_Controller {
 						</tr>
 					';
 				}
+
 				echo json_encode(
 					array(
 						'status' => true,
@@ -222,7 +223,7 @@ class User extends CI_Controller {
 			}else{
 				echo json_encode(
 					array(
-						'status' => true,
+						'status' => false,
 						'data' => array(
 							'contacts' => '',
 							'pagination' => '',

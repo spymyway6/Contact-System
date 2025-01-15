@@ -49,7 +49,7 @@
                             <button class="primary-btn" id="submit-button" type="button" onclick="registerUser(this, 'register-form')"> Submit</button>
                         </div>
                         <div class="form-group text-center">
-                            <p>Don't have an Account? <a href="<?=base_url();?>register">Register</a></p>
+                            <p>Already have an Account? <a href="<?=base_url();?>login">Login</a></p>
                         </div>
                     </div>
                 </form>
